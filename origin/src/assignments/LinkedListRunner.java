@@ -4,9 +4,17 @@ public class LinkedListRunner {
     public static void main(String[] args) {
         System.out.println("Example #1");
         LinkedList linkedList = new LinkedList();
+
         linkedList.addNewNodes(new String[]{"A", "B", "C", "D", "E"});
         linkedList.printList();
+
+        linkedList.addNewNode("B");
+        linkedList.printList();
+
         linkedList.addLoop("D");
+        linkedList.printList();
+
+        linkedList.addNewNode("N");
         linkedList.printList();
 
         System.out.println("Example #2");

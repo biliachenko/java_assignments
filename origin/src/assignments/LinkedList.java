@@ -8,14 +8,18 @@ public class LinkedList extends Node {
         Node newNode = new Node(name);
         boolean isUnique = true;
         //If we don't have any nodes in our linked list, then it will be our head
-        if (head == null) {
+        if (head == null){
             head = newNode;
         }
+        //If we have a loop in our linked list
+        else if(checkForLoop() != null){
+            System.out.println("You could not add any new nodes");
+        }
         //If we already have at least one node in our linked list
-        else {
+        else{
             //First of all we point to the head of linked list
             Node lastNode = head;
-            while (lastNode.nextNode != null) {
+            while (lastNode.nextNode != null){
                 if (lastNode.name.equals(name)){
                     isUnique = false;
                     break;
@@ -25,20 +29,19 @@ public class LinkedList extends Node {
             }
 
             //Check for unique node
-            if (isUnique) {
+            if (isUnique){
                 //Insert a new node in our linked list
                 lastNode.nextNode = newNode;
             }
             else{
                 System.out.println("You should add only new unique nodes, use addLoop method to create a loop");
             }
-
         }
     }
 
     //Adding some nodes to the linked list
     public void addNewNodes(String[] names){
-        for (String n : names) {
+        for (String n : names){
             addNewNode(n);
         }
     }
@@ -52,8 +55,12 @@ public class LinkedList extends Node {
             head = newNode;
             head.nextNode = newNode;
         }
+        //If we already have loop in our linked list
+        else if (checkForLoop() != null){
+            System.out.println("You already have a loop in this linked list");
+        }
         //If we already have nodes in our linked list
-        else {
+        else{
             Node currentNode = head;
             boolean isPresent = false;
             //Trying to find node for loop
@@ -82,30 +89,35 @@ public class LinkedList extends Node {
 
     //Used Floyd’s loop detection algorithm
     public Node checkForLoop() {
-
-        if (head == null || head.nextNode == null) {
+        //If we don't have any nodes in our linked list or only 1 node
+        if (head == null || head.nextNode == null){
             return null;
         }
+
         Node leftBound = head;
         leftBound = leftBound.nextNode;
 
         Node rightBound = head;
         rightBound = rightBound.nextNode.nextNode;
 
-        while (rightBound != null && rightBound.nextNode != null) {
-            if (leftBound == rightBound) {
+        //Try to find a loop in linked list
+        while (rightBound != null && rightBound.nextNode != null){
+            if (leftBound == rightBound){
                 break;
             }
             leftBound = leftBound.nextNode;
             rightBound = rightBound.nextNode.nextNode;
         }
 
-        if (leftBound != rightBound) {
+        //There is no loop in our linked list
+        if (leftBound != rightBound){
             return null;
         }
 
+        //There is a loop in our linked list
+        //Return exact node - loop point
         leftBound = head;
-        while (leftBound != rightBound) {
+        while (leftBound != rightBound){
             leftBound = leftBound.nextNode;
             rightBound = rightBound.nextNode;
         }
@@ -124,7 +136,7 @@ public class LinkedList extends Node {
         if(checkForLoop() != null){
             Node lastNode = head;
             int iterator = checkIfHeadIsPointForLoop() ? 0 : -1;
-            while (iterator < 1) {
+            while (iterator < 1){
                 if(lastNode.nextNode.equals(checkForLoop())) {
                     iterator++;
                 }
@@ -134,12 +146,12 @@ public class LinkedList extends Node {
             System.out.println(lastNode.name);
         }
         else{
-            while (currentNode != null) {
-                if (currentNode.nextNode == null) {
+            while (currentNode != null){
+                if (currentNode.nextNode == null){
                     //End of linked list
                     System.out.print(currentNode.name);
                 }
-                else {
+                else{
                     //Linked list
                     System.out.print(currentNode.name + " -> ");
                 }

@@ -10,6 +10,7 @@ public class Node {
         nextNode = null;
     }
 
+    //Constructor with name
     Node(String name){
         this.name = name;
         nextNode = null;
