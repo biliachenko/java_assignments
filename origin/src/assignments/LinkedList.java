@@ -1,6 +1,6 @@
 package assignments;
 
-public class LinkedList extends Node {
+public class LinkedList {
     protected Node head;
 
     //Adding one new node to the linked list
